@@ -2,14 +2,26 @@
 - name: Set up Nginx web server and deploy a default web page
   hosts: all  # Replace with your target group or host name
   tasks:
+
+    - name: Gather facts
+      ansible.builtinsetup:
+      
     - name: Install Nginx package
-      apt:
+      ansible.builtin.apt:
         name: nginx
         state: present
         update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install Nginx package
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "RedHat"
 
     - name: Start and enable Nginx service
-      systemd:
+      ansible.builtin.service:
         name: nginx
         state: started
         enabled: yes
