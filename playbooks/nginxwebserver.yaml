@@ -4,7 +4,7 @@
   tasks:
 
     - name: Gather facts
-      ansible.builtinsetup:
+      ansible.builtin.setup:
       
     - name: Install Nginx package
       ansible.builtin.apt:
