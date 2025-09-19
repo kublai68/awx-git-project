@@ -2,6 +2,8 @@
 all:
   hosts:
     ubuntu-host:
-      ansible_host: 192.168.1.6
+      ansible_host: 192.168.12.27
     centos-host:
-      ansible_host: 192.168.1.18
+      ansible_host: 192.168.12.72
+    debian-host:
+      ansible_host: 192.168.12.32
