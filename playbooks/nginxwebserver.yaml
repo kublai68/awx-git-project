@@ -26,7 +26,7 @@
         state: started
         enabled: yes
 
-    - name: Create the default index.html page
+    - name: Create the default index.html page for Debian
       copy:
         dest: /var/www/html/index.html
         content: |
@@ -37,9 +37,23 @@
             </body>
           </html>
         mode: '0644'
+      when: ansible_os_family == "Debian"
+
+    - name: Create the default index.html page for Redhat
+      copy:
+        dest: /usr/share/nginx/html/index.html
+        content: |
+          <html>
+            <head><title>Welcome to Nginx!</title></head>
+            <body>
+              <h1>Hello, World! This is the default page served by Nginx.</h1>
+            </body>
+          </html>
+        mode: '0644'
+      when: ansible_os_family == "RedHat"
 
     - name: Ensure Nginx is running
-      systemd:
+      ansible.builtin.service:
         name: nginx
         state: restarted
         enabled: yes
